@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>QR Code Generator</h1>
@@ -16,16 +18,19 @@
                 <option value="image">Image</option>
                 <option value="pdf">PDF</option>
             </select>
-            <input type="text" id="qrInput" placeholder="Enter URL">
+            <input type="text" id="qrInput" placeholder="Enter URL or file name">
             <input type="file" id="fileInput" accept="image/*, application/pdf" style="display: none;">
-            <button type="button" id="fileButton">Choose File</button>
+            <button type="button" id="file">Choose File</button>
             <button type="submit">Generate QR Code</button>
         </form>
         <div id="qrCode"></div>
-        <div id="errorMessage" style="color: red;"></div>
+        <div id="errorMessage"></div>
         <button id="downloadButton" style="display: none;">Download QR Code</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="script.js"></script>
+    
 </body>
+
 </html>
