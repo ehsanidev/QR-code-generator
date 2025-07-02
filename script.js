@@ -1,8 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded, setting up everything.');
 
+    // تابع برای نمایش/مخفی کردن دکمه Choose File
+    function toggleFileButton() {
+        const type = document.getElementById('qrType').value;
+        const fileButton = document.getElementById('fileButton');
+        fileButton.style.display = (type === 'image' || type === 'pdf') ? 'inline-block' : 'none';
+    }
+
+    // Event listener برای تغییر نوع QR code
+    document.getElementById('qrType').addEventListener('change', toggleFileButton);
+
+    // فراخوانی اولیه برای تنظیم وضعیت اولیه دکمه Choose File
+    toggleFileButton();
+
     function generateQRCode(type, input, file) {
-        console.log('generateQRCode called with:', { type, input, file });
+        console.log('generateQRCode called with:', { type, input, file });  // دیباگ: بررسی پارامترها
+        let qrContent = '';
         const errorMessage = document.getElementById('errorMessage');
         errorMessage.textContent = '';
 
@@ -11,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        switch (type) {
+        switch(type) {
             case 'url':
                 if (!input) {
                     errorMessage.textContent = 'لطفاً یک URL وارد کنید.';
@@ -26,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     qrContent = e.target.result;
                     console.log('File read, now calling createQRCode');
                     createQRCode(qrContent);
@@ -37,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 errorMessage.textContent = 'نوع نامعتبر.';
                 return;
         }
-        createQRCode(qrContent);
+        createQRCode(qrContent);  // فراخوانی تابع بعدی
     }
 
     function createQRCode(content) {
@@ -45,18 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const qrCodeDiv = document.getElementById("qrCode");
         qrCodeDiv.innerHTML = '';
         try {
-            const qrCode = new QRCode(qrCodeDiv,
-                {
-                    text: content,
-                    width: 128,
-                    height: 128,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
-                });
+            const qrCode = new QRCode(qrCodeDiv, {
+                text: content,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
             const downloadButton = document.getElementById('downloadButton');
-            downloadButton.style.display = 'block';
-            downloadButton.onclick = function () {
+            downloadButton.classList.remove('d-none');
+            downloadButton.onclick = function() {
                 const canvas = qrCodeDiv.querySelector('canvas');
                 if (canvas) {
                     const dataURL = canvas.toDataURL('image/png');
@@ -73,10 +86,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error in createQRCode:', error);
             document.getElementById('errorMessage').textContent = 'تولید QR code شکست خورد.';
         }
-    };
+    }
+
     const qrForm = document.getElementById('qrForm');
     if (qrForm) {
-        qrForm.addEventListener('submit', function (e) {
+        qrForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const type = document.getElementById('qrType').value;
             const input = document.getElementById('qrInput').value;
@@ -90,14 +104,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const fileButton = document.getElementById('fileButton');
     if (fileButton) {
-        fileButton.addEventListener('click', function () {
+        fileButton.addEventListener('click', function() {
             document.getElementById('fileInput').click();
         });
     }
 
     const fileInput = document.getElementById('fileInput');
     if (fileInput) {
-        fileInput.addEventListener('change', function () {
+        fileInput.addEventListener('change', function() {
             const fileName = this.files[0] ? this.files[0].name : '';
             document.getElementById('qrInput').value = fileName;
         });
