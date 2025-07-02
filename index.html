@@ -5,32 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>QR Code Generator</h1>
-        <form id="qrForm">
-            <label for="qrType">Type:</label>
-            <select id="qrType">
-                <option value="url">URL</option>
-                <option value="image">Image</option>
-                <option value="pdf">PDF</option>
-            </select>
-            <input type="text" id="qrInput" placeholder="Enter URL or file name">
-            <input type="file" id="fileInput" accept="image/*, application/pdf" style="display: none;">
-            <button type="button" id="file">Choose File</button>
-            <button type="submit">Generate QR Code</button>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">QR Code Generator</h1>
+        <form id="qrForm" class="mb-4">
+            <div class="mb-3">
+                <label for="qrType" class="form-label">Type:</label>
+                <select id="qrType" class="form-select">
+                    <option value="url">URL</option>
+                    <option value="image">Image</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" id="qrInput" class="form-control" placeholder="Enter URL or file name">
+            </div>
+            <div class="mb-3">
+                <input type="file" id="fileInput" accept="image/*, application/pdf" style="display: none;">
+                <button type="button" id="fileButton" class="btn btn-secondary">Choose File</button>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate QR Code</button>
         </form>
-        <div id="qrCode"></div>
-        <div id="errorMessage"></div>
-        <button id="downloadButton" style="display: none;">Download QR Code</button>
+        <div id="qrCode" class="text-center mb-3"></div>
+        <div id="errorMessage" class="text-danger text-center mb-3"></div>
+        <button id="downloadButton" class="btn btn-success d-none">Download QR Code</button>
     </div>
-
+    <!-- QRCode JS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Bootstrap JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <!-- Custom JS -->
     <script src="script.js"></script>
-    
 </body>
 
 </html>
